@@ -76,12 +76,5 @@ Modern OWL-based dashboard providing:
 
 ---
 
-## 📝 Authors & Support
-- **Author**: Zain Sardar
-- **Website**: [zasolpk.com](https://zasolpk.com)
-- **License**: LGPL-3
-
----
-
 > [!TIP]
 > **Pro Tip**: Use the **Silent Mode** in the Trigger Matrix to log message intents during testing without burning your WhatsApp API credits!

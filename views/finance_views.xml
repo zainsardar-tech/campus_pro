@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Fee Type -->
+    <record id="view_campus_fee_type_tree" model="ir.ui.view">
+        <field name="name">campus.fee.type.tree</field>
+        <field name="model">campus.fee.type</field>
+        <field name="arch" type="xml">
+            <list string="Fee Types" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_recurring"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Fee Structure -->
+    <record id="view_campus_fee_structure_form" model="ir.ui.view">
+        <field name="name">campus.fee_structure.form</field>
+        <field name="model">campus.fee.structure</field>
+        <field name="arch" type="xml">
+            <form string="Fee Structure">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="class_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Fee Lines">
+                            <field name="fee_line_ids">
+                                <list editable="bottom">
+                                    <field name="fee_type_id"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Challan Views -->
+    <record id="view_campus_fee_challan_tree" model="ir.ui.view">
+        <field name="name">campus.fee.challan.tree</field>
+        <field name="model">campus.fee.challan</field>
+        <field name="arch" type="xml">
+            <list string="Challans" decoration-success="state == 'paid'" decoration-info="state == 'posted'">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="month"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_campus_fee_challan_form" model="ir.ui.view">
+        <field name="name">campus.fee.challan.form</field>
+        <field name="model">campus.fee.challan</field>
+        <field name="arch" type="xml">
+            <form string="Challan">
+                <header>
+                    <button name="action_post" string="Post Challan" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_send_whatsapp_reminder" string="WhatsApp Reminder" type="object" class="oe_highlight" invisible="state not in ['posted', 'partial']" icon="fa-whatsapp"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="session_id"/>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <field name="date_issue"/>
+                            <field name="date_due"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="fee_type_id"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="discount_amount" invisible="discount_amount == 0 and not discount_approved"/>
+                                <field name="discount_reason" invisible="discount_amount == 0"/>
+                                <field name="discount_approved" widget="boolean_toggle" invisible="discount_amount == 0"/>
+                                <field name="fine_amount" readonly="1"/>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                <field name="amount_paid"/>
+                                <field name="amount_residual" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_campus_fee_type" model="ir.actions.act_window">
+        <field name="name">Fee Types</field>
+        <field name="res_model">campus.fee.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_fee_structure" model="ir.actions.act_window">
+        <field name="name">Fee Structures</field>
+        <field name="res_model">campus.fee.structure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_fee_challan" model="ir.actions.act_window">
+        <field name="name">Fee Challans</field>
+        <field name="res_model">campus.fee.challan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- Fine Rules -->
+    <record id="view_campus_fee_fine_rule_tree" model="ir.ui.view">
+        <field name="name">campus.fee.fine_rule.tree</field>
+        <field name="model">campus.fee.fine_rule</field>
+        <field name="arch" type="xml">
+            <list string="Fine Rules" editable="bottom">
+                <field name="name"/>
+                <field name="fine_type"/>
+                <field name="amount"/>
+                <field name="grace_period"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_campus_fee_fine_rule" model="ir.actions.act_window">
+        <field name="name">Fine Rules</field>
+        <field name="res_model">campus.fee.fine_rule</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

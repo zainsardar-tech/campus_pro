@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Session Views -->
+    <record id="view_campus_session_tree" model="ir.ui.view">
+        <field name="name">campus.session.tree</field>
+        <field name="model">campus.session</field>
+        <field name="arch" type="xml">
+            <list string="Sessions">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_campus_session_form" model="ir.ui.view">
+        <field name="name">campus.session.form</field>
+        <field name="model">campus.session</field>
+        <field name="arch" type="xml">
+            <form string="Session">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Campus Views -->
+    <record id="view_campus_campus_tree" model="ir.ui.view">
+        <field name="name">campus.campus.tree</field>
+        <field name="model">campus.campus</field>
+        <field name="arch" type="xml">
+            <list string="Campuses">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="phone"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_campus_campus_form" model="ir.ui.view">
+        <field name="name">campus.campus.form</field>
+        <field name="model">campus.campus</field>
+        <field name="arch" type="xml">
+            <form string="Campus">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Campus Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Address">
+                            <field name="address"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Class Views -->
+    <record id="view_campus_class_tree" model="ir.ui.view">
+        <field name="name">campus.class.tree</field>
+        <field name="model">campus.class</field>
+        <field name="arch" type="xml">
+            <list string="Classes" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Section Views -->
+    <record id="view_campus_section_tree" model="ir.ui.view">
+        <field name="name">campus.section.tree</field>
+        <field name="model">campus.section</field>
+        <field name="arch" type="xml">
+            <list string="Sections" editable="bottom">
+                <field name="class_id"/>
+                <field name="name"/>
+                <field name="campus_id"/>
+                <field name="teacher_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_campus_session" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="res_model">campus.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_campus" model="ir.actions.act_window">
+        <field name="name">Campuses</field>
+        <field name="res_model">campus.campus</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_class" model="ir.actions.act_window">
+        <field name="name">Classes</field>
+        <field name="res_model">campus.class</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_section" model="ir.actions.act_window">
+        <field name="name">Sections</field>
+        <field name="res_model">campus.section</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Subject Views -->
+    <record id="view_campus_subject_tree" model="ir.ui.view">
+        <field name="name">campus.subject.tree</field>
+        <field name="model">campus.subject</field>
+        <field name="arch" type="xml">
+            <list string="Subjects" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="class_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_campus_subject_form" model="ir.ui.view">
+        <field name="name">campus.subject.form</field>
+        <field name="model">campus.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subject">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Subject Name e.g. Mathematics"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="class_ids" widget="many2many_tags" placeholder="Select Classes..."/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_campus_subject" model="ir.actions.act_window">
+        <field name="name">Subjects</field>
+        <field name="res_model">campus.subject</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

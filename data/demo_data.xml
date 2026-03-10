@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Session -->
+    <record id="demo_session_2024" model="campus.session">
+        <field name="name">2024-25</field>
+        <field name="date_start">2024-01-01</field>
+        <field name="date_end">2024-12-31</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Campus -->
+    <record id="demo_campus_main" model="campus.campus">
+        <field name="name">Main Campus</field>
+        <field name="code">MC01</field>
+        <field name="address">Gulberg, Lahore, Pakistan</field>
+    </record>
+
+    <!-- Classes -->
+    <record id="demo_class_9" model="campus.class">
+        <field name="name">Grade 9</field>
+        <field name="code">9TH</field>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="demo_class_10" model="campus.class">
+        <field name="name">Grade 10</field>
+        <field name="code">10TH</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- Guardian -->
+    <record id="demo_guardian_1" model="campus.guardian">
+        <field name="name">M. Tahir</field>
+        <field name="relation">father</field>
+        <field name="phone">923001234567</field>
+    </record>
+
+    <!-- Student -->
+    <record id="demo_student_1" model="campus.student">
+        <field name="name">Ali Ahmed</field>
+        <field name="gr_no">GR-1001</field>
+        <field name="gender">male</field>
+        <field name="guardian_id" ref="demo_guardian_1"/>
+        <field name="class_id" ref="demo_class_9"/>
+        <field name="session_id" ref="demo_session_2024"/>
+        <field name="state">enrolled</field>
+    </record>
+</odoo>

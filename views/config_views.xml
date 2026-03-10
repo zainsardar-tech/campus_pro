@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.academy</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Campus Pro" string="Campus Pro" name="campus_pro">
+                    <block title="WhatsApp Automation" id="wams_management">
+                        <setting title="API Status" help="Configure WAMS API Key and Sender Number">
+                            <group>
+                                <field name="wams_api_key" password="True"/>
+                                <field name="wams_sender" placeholder="e.g. 923001234567"/>
+                            </group>
+                            <div class="mt16">
+                                <button name="action_test_wams_connection" type="object" string="Test Connection" class="btn-outline-primary btn-sm"/>
+                            </div>
+                        </setting>
+                        <setting title="Governance &amp; Triggers" help="Manage how messages are triggered across the campus">
+                            <div class="mt-2">
+                                <button name="%(campus_pro.action_campus_whatsapp_template)d" string="Manage Templates" type="action" class="btn-link p-0 me-3" icon="fa-file-text-o"/>
+                                <button name="%(campus_pro.action_campus_whatsapp_trigger)d" string="Trigger Matrix" type="action" class="btn-link p-0 me-3" icon="fa-th-large"/>
+                                <button name="%(campus_pro.action_campus_whatsapp_log)d" string="Audit Logs" type="action" class="btn-link p-0" icon="fa-list"/>
+                            </div>
+                        </setting>
+                    </block>
+                    
+                    <block title="ID Card Design" id="id_card_config">
+                        <setting title="General Styles" help="Header, subheader and brand colors">
+                            <group>
+                                <field name="campus_id_card_header_text"/>
+                                <field name="campus_id_card_sub_header_text"/>
+                                <field name="campus_id_card_primary_color" widget="color"/>
+                                <field name="campus_id_card_secondary_color" widget="color"/>
+                            </group>
+                        </setting>
+                        <setting title="Card Content" help="Toggle visibility of fields on the printed ID card">
+                            <group>
+                                <field name="campus_id_card_show_qr"/>
+                                <field name="campus_id_card_show_address"/>
+                                <field name="campus_id_card_show_bform"/>
+                                <field name="campus_id_card_show_emergency"/>
+                            </group>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_campus_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'campus_pro'}</field>
+    </record>
+
+</odoo>

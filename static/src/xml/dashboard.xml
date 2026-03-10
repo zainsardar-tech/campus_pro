@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="campus_pro.DashboardMain" owl="1">
+        <div class="o_academy_dashboard p-4 animate-fade-up">
+            <!-- Premium Header -->
+            <div class="dashboard-header mb-5 d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">Campus Intelligence</h2>
+                    <p class="text-secondary mb-0">Unified Institute Management Analytics</p>
+                </div>
+                <div class="glass-card px-4 py-2 d-flex align-items-center gap-3">
+                    <i class="fa fa-clock-o text-primary"></i>
+                    <span class="fw-semibold text-dark"><t t-esc="new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })"/></span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="row g-4 mb-5">
+                <!-- Students Stats -->
+                <div class="col-md-3">
+                    <div class="glass-card stats-card student-card h-100" t-on-click="onStudentClick">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box" style="background: rgba(99, 102, 241, 0.15); color: #6366f1;">
+                                <i class="fa fa-users fs-4"></i>
+                            </div>
+                            <span class="text-success small fw-bold">Active</span>
+                        </div>
+                        <h3 class="fw-bold mb-1"><t t-esc="state.stats.students"/></h3>
+                        <span class="text-secondary small fw-semibold text-uppercase">Total Students</span>
+                    </div>
+                </div>
+
+                <!-- Fees Stats -->
+                <div class="col-md-3">
+                    <div class="glass-card stats-card fee-card h-100" t-on-click="onFeesClick">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                                <i class="fa fa-money fs-4"></i>
+                            </div>
+                            <span class="text-info small fw-bold">PKR</span>
+                        </div>
+                        <h3 class="fw-bold mb-1"><t t-esc="state.stats.fees_collected.toLocaleString()"/></h3>
+                        <span class="text-secondary small fw-semibold text-uppercase">Total Revenue</span>
+                    </div>
+                </div>
+
+                <!-- Attendance Stats -->
+                <div class="col-md-3">
+                    <div class="glass-card stats-card attendance-card h-100" t-on-click="onAttendanceClick" style="cursor: pointer;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9;">
+                                <i class="fa fa-check-circle-o fs-4"></i>
+                            </div>
+                            <span class="text-primary small fw-bold">Today</span>
+                        </div>
+                        <h3 class="fw-bold mb-1"><t t-esc="state.stats.attendance_today"/>%</h3>
+                        <span class="text-secondary small fw-semibold text-uppercase">Daily Attendance</span>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Automation Status -->
+                <div class="col-md-3">
+                    <div t-attf-class="glass-card stats-card whatsapp-card h-100" t-on-click="onWamsClick" style="cursor: pointer;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box" style="background: rgba(37, 211, 102, 0.15); color: #25d366;">
+                                <i class="fa fa-whatsapp fs-4"></i>
+                            </div>
+                            <div t-if="state.stats.wams_connected" class="wams-status wams-online">
+                                <div class="pulse-online"></div> Online
+                            </div>
+                            <div t-else="" class="wams-status wams-offline">
+                                <i class="fa fa-times-circle"></i> Offline
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mb-1"><t t-esc="state.stats.wams_connected ? 'Active' : 'Not Configured'"/></h4>
+                        <span class="text-secondary small fw-semibold text-uppercase">WAMS Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 1: Enrollment Cycles -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-7">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Monthly Enrollment Trend</h5>
+                            <i class="fa fa-line-chart text-secondary"></i>
+                        </div>
+                        <div class="chart-container">
+                            <canvas t-ref="trendsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Gender Distribution</h5>
+                            <i class="fa fa-venus-mars text-secondary"></i>
+                        </div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas t-ref="genderChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 2: Performance & Stats -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Fee Status</h5>
+                            <i class="fa fa-pie-chart text-secondary"></i>
+                        </div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas t-ref="feeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Class-wise Density</h5>
+                            <i class="fa fa-bar-chart text-secondary"></i>
+                        </div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas t-ref="classDistChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">7-Day Admissions</h5>
+                            <span class="badge bg-primary-light text-primary py-1 px-2 rounded-pill small">Daily</span>
+                        </div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas t-ref="dailyTrendsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table & Automation Section -->
+            <div class="row g-4">
+                <div class="col-md-8">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Recent Admissions (Live Feed)</h5>
+                            <button class="btn btn-sm btn-outline-primary fw-bold px-3 rounded-pill" t-on-click="onStudentClick">Manage All Students</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="modern-table">
+                                <thead class="border-bottom">
+                                    <tr>
+                                        <th>Student Identity</th>
+                                        <th>Academic Level</th>
+                                        <th>Enrolled On</th>
+                                        <th class="text-center">Lifecycle Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="state.stats.recent_students" t-as="student" t-key="student.id">
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div t-attf-class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" 
+                                                         t-attf-style="width: 38px; height: 38px; background: {{ student.state == 'enrolled' ? '#6366f1' : '#94a3b8' }};">
+                                                        <t t-esc="student.name[0]"/>
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-bold text-dark"><t t-esc="student.name"/></div>
+                                                        <div class="text-secondary x-small">ID: <t t-esc="student.formatted_id"/></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="fw-semibold"><t t-esc="student.class_id[1]"/></div>
+                                            </td>
+                                            <td class="text-secondary font-monospace"><t t-esc="student.formatted_date"/></td>
+                                            <td class="text-center">
+                                                <span t-attf-class="badge-premium {{ student.state == 'enrolled' ? 'bg-success-light text-success' : 'bg-info-light text-info' }}">
+                                                    <i t-if="student.state == 'enrolled'" class="fa fa-check-circle me-1"></i>
+                                                    <t t-esc="student.state.charAt(0).toUpperCase() + student.state.slice(1)"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Intelligence Center</h5>
+                            <i class="fa fa-line-chart text-primary fs-5"></i>
+                        </div>
+                        <div class="d-grid gap-3">
+                            <div class="p-3 rounded-4 bg-light border border-dashed mb-2">
+                                <span class="text-secondary small d-block mb-1">Governance Status</span>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold text-dark">WAMS API</span>
+                                    <span t-attf-class="badge rounded-pill {{ state.stats.wams_connected ? 'bg-success' : 'bg-danger' }}">
+                                        <t t-esc="state.stats.wams_connected ? 'Operational' : 'Offline'"/>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 rounded-4 bg-primary-light border-0" t-on-click="onDefaultersClick" style="cursor: pointer;">
+                                <h6 class="fw-bold text-primary mb-2">Collection Index</h6>
+                                <div class="fs-4 fw-bold text-dark mb-1">
+                                    <t t-esc="(state.stats.fees_collected / (state.stats.fees_total || 1) * 100).toFixed(1)"/>%
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" 
+                                         t-attf-style="width: {{ (state.stats.fees_collected / (state.stats.fees_total || 1) * 100) }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-4 bg-info-light border-0 mb-2" t-on-click="onEligibilityClick" style="cursor: pointer;">
+                                <h6 class="fw-bold text-info mb-2">Academic Eligibility</h6>
+                                <div class="fs-4 fw-bold text-dark mb-1">
+                                    <t t-esc="state.stats.ineligible_count"/> 
+                                </div>
+                                <div class="mt-1 small text-secondary">Ineligible for exams</div>
+                            </div>
+
+                            <div class="p-4 rounded-4 bg-danger-light border-0" t-on-click="onRiskClick" style="cursor: pointer;">
+                                <h6 class="fw-bold text-danger mb-2">Dropout Risk</h6>
+                                <div class="fs-4 fw-bold text-dark mb-1">
+                                    <t t-esc="state.stats.high_risk_count"/> 
+                                </div>
+                                <div class="mt-1 small text-secondary">Medium/High risk students</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

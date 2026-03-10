@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_fee_challan" model="ir.actions.report">
+        <field name="name">Fee Challan (Pakistani)</field>
+        <field name="model">campus.fee.challan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">campus_pro.report_fee_challan_template</field>
+        <field name="report_file">campus_pro.report_fee_challan_template</field>
+        <field name="print_report_name">'Challan - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_campus_fee_challan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_fee_challan_template">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <div style="width: 100%; display: flex; flex-direction: row; gap: 10px; font-size: 11px;">
+                        <!-- Three Copies: Bank, Office, Student -->
+                        <t t-foreach="['BANK COPY', 'OFFICE COPY', 'STUDENT COPY']" t-as="copy_type">
+                            <div style="flex: 1; border: 1px dotted #ccc; padding: 10px;">
+                                <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px;">
+                                    <h5 style="margin: 0;">CAMPUS PRO</h5>
+                                    <small><t t-esc="copy_type"/></small>
+                                </div>
+                                
+                                <table style="width: 100%; margin-bottom: 15px;">
+                                    <tr>
+                                        <td><strong>Challan:</strong></td>
+                                        <td style="text-align: right;"><t t-esc="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date:</strong></td>
+                                        <td style="text-align: right;"><t t-esc="o.date_issue"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Due Date:</strong></td>
+                                        <td style="text-align: right;"><t t-esc="o.date_due"/></td>
+                                    </tr>
+                                </table>
+
+                                <div>
+                                    <p style="margin: 0;"><strong>Name:</strong> <t t-esc="o.student_id.name"/></p>
+                                    <p style="margin: 0;"><strong>Reg No:</strong> <t t-esc="o.student_id.registration_no"/></p>
+                                    <p style="margin: 0;"><strong>Class:</strong> <t t-esc="o.student_id.class_id.name"/></p>
+                                    <p style="margin: 0;"><strong>Month:</strong> <t t-esc="dict(o.fields_get(['month'])['month']['selection'])[o.month]"/></p>
+                                </div>
+
+                                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid #eee;">
+                                            <th style="text-align: left;">Particulars</th>
+                                            <th style="text-align: right;">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.line_ids" t-as="line">
+                                            <tr>
+                                                <td><t t-esc="line.fee_type_id.name"/></td>
+                                                <td style="text-align: right;"><t t-esc="line.amount"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="border-top: 2px solid #000;">
+                                            <td><strong>Total</strong></td>
+                                            <td style="text-align: right;"><strong><t t-esc="o.amount_total"/></strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                <div style="margin-top: 20px;">
+                                    <p style="font-size: 9px; color: #666;">Note: Please pay before the due date to avoid fines. Pay via JazzCash/EasyPaisa using account details on back.</p>
+                                </div>
+                                
+                                <div style="margin-top: 40px; border-top: 1px solid #ccc; text-align: center; padding-top: 5px;">
+                                    <small>Authorized Signature</small>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

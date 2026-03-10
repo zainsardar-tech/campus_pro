@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard -->
+    <record id="action_campus_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">campus_dashboard_tag</field>
+    </record>
+
+    <menuitem id="menu_campus_root"
+              name="Campus Pro"
+              web_icon="campus_pro,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_dashboard"
+              name="Dashboard"
+              parent="menu_campus_root"
+              action="action_campus_dashboard"
+              sequence="1"/>
+
+    <!-- Student Management -->
+    <menuitem id="menu_campus_students_root"
+              name="Students"
+              parent="menu_campus_root"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_student"
+              name="Students"
+              parent="menu_campus_students_root"
+              action="action_campus_student"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_guardian"
+              name="Guardians"
+              parent="menu_campus_students_root"
+              action="action_campus_guardian"
+              sequence="20"/>
+
+    <!-- Academics -->
+    <menuitem id="menu_campus_academics_root"
+              name="Academics"
+              parent="menu_campus_root"
+              sequence="20"/>
+
+    <menuitem id="menu_campus_session"
+              name="Sessions"
+              parent="menu_campus_academics_root"
+              action="action_campus_session"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_campus"
+              name="Campuses"
+              parent="menu_campus_academics_root"
+              action="action_campus_campus"
+              sequence="20"/>
+
+    <menuitem id="menu_campus_class"
+              name="Classes"
+              parent="menu_campus_academics_root"
+              action="action_campus_class"
+              sequence="30"/>
+
+    <menuitem id="menu_campus_section"
+              name="Sections"
+              parent="menu_campus_academics_root"
+              action="action_campus_section"
+              sequence="40"/>
+
+    <menuitem id="menu_campus_subject"
+              name="Subjects"
+              parent="menu_campus_academics_root"
+              action="action_campus_subject"
+              sequence="50"/>
+
+    <!-- Attendance -->
+    <menuitem id="menu_campus_attendance_root"
+              name="Attendance"
+              parent="menu_campus_root"
+              sequence="30"/>
+
+    <menuitem id="menu_campus_attendance"
+              name="Student Attendance"
+              parent="menu_campus_attendance_root"
+              action="action_campus_attendance"
+              sequence="10"/>
+
+    <!-- Examination -->
+    <menuitem id="menu_campus_exam_root"
+              name="Examination"
+              parent="menu_campus_root"
+              sequence="40"/>
+
+    <menuitem id="menu_campus_exam"
+              name="Exams"
+              parent="menu_campus_exam_root"
+              action="action_campus_exam"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_exam_result"
+              name="Exam Results"
+              parent="menu_campus_exam_root"
+              action="action_campus_exam_result"
+              sequence="20"/>
+
+    <!-- Finance -->
+    <menuitem id="menu_campus_finance_root"
+              name="Fees &amp; Finance"
+              parent="menu_campus_root"
+              sequence="50"/>
+
+    <menuitem id="menu_campus_fee_challan"
+              name="Student Challans"
+              parent="menu_campus_finance_root"
+              action="action_campus_fee_challan"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_fee_structure"
+              name="Fee Structures"
+              parent="menu_campus_finance_root"
+              action="action_campus_fee_structure"
+              sequence="20"/>
+
+    <menuitem id="menu_campus_fee_type"
+              name="Fee Types"
+              parent="menu_campus_finance_root"
+              action="action_campus_fee_type"
+              sequence="30"/>
+
+    <menuitem id="menu_campus_fee_fine_rule"
+              name="Fine Rules"
+              parent="menu_campus_finance_root"
+              action="action_campus_fee_fine_rule"
+              sequence="40"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_campus_config_root"
+              name="Configuration"
+              parent="menu_campus_root"
+              sequence="100"/>
+
+    <menuitem id="menu_campus_settings"
+              name="Settings"
+              parent="menu_campus_config_root"
+              action="action_campus_config_settings"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_whatsapp_config"
+              name="WhatsApp Automation"
+              parent="menu_campus_config_root"
+              sequence="20"/>
+
+    <menuitem id="menu_campus_whatsapp_templates"
+              name="Message Templates"
+              parent="menu_campus_whatsapp_config"
+              action="action_campus_whatsapp_template"
+              sequence="10"/>
+
+    <menuitem id="menu_campus_whatsapp_trigger"
+              name="Trigger Matrix"
+              parent="menu_campus_whatsapp_config"
+              action="action_campus_whatsapp_trigger"
+              sequence="20"/>
+
+    <menuitem id="menu_campus_whatsapp_logs"
+              name="WhatsApp Logs"
+              parent="menu_campus_whatsapp_config"
+              action="action_campus_whatsapp_log"
+              sequence="30"/>
+</odoo>

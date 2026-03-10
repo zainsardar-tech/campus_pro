@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_campus_whatsapp_template_tree" model="ir.ui.view">
+        <field name="name">campus.whatsapp.template.tree</field>
+        <field name="model">campus.whatsapp.template</field>
+        <field name="arch" type="xml">
+            <list string="WhatsApp Templates">
+                <field name="name"/>
+                <field name="event_type"/>
+                <field name="lang"/>
+                <field name="campus_id"/>
+                <field name="is_approved" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_campus_whatsapp_template_form" model="ir.ui.view">
+        <field name="name">campus.whatsapp.template.form</field>
+        <field name="model">campus.whatsapp.template</field>
+        <field name="arch" type="xml">
+            <form string="WhatsApp Template">
+                <header>
+                    <button name="%(action_campus_whatsapp_template)d" string="Approve" type="action" class="btn-primary" invisible="is_approved" groups="base.group_system"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Admission Welcome"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="event_type"/>
+                            <field name="lang"/>
+                        </group>
+                        <group>
+                            <field name="campus_id"/>
+                            <field name="is_approved" readonly="1"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Message Body">
+                        <field name="body" nolabel="1" placeholder="Type your message with {{placeholders}}..."/>
+                    </group>
+                    <div class="alert alert-info mt-3" role="alert">
+                        <strong>Available Placeholders (Object notation supported):</strong><br/>
+                        • <strong>General:</strong> {{student.name}}, {{guardian.name}}, {{campus.name}}<br/>
+                        • <strong>Admission:</strong> {{student.class_id.name}}<br/>
+                        • <strong>Fee:</strong> {{challan.name}}, {{challan.amount_residual}}, {{challan.date_due}}<br/>
+                        • <strong>Absence:</strong> {{date}}
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_campus_whatsapp_trigger_tree" model="ir.ui.view">
+        <field name="name">campus.whatsapp.trigger.tree</field>
+        <field name="model">campus.whatsapp.trigger</field>
+        <field name="arch" type="xml">
+            <list string="Trigger Matrix" editable="bottom">
+                <field name="event_type"/>
+                <field name="mode"/>
+                <field name="template_id"/>
+                <field name="role_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_campus_whatsapp_template" model="ir.actions.act_window">
+        <field name="name">WhatsApp Templates</field>
+        <field name="res_model">campus.whatsapp.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_campus_whatsapp_trigger" model="ir.actions.act_window">
+        <field name="name">WhatsApp Trigger Matrix</field>
+        <field name="res_model">campus.whatsapp.trigger</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

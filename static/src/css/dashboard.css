@@ -1,0 +1,233 @@
+/* Campus Pro - Premium Dashboard Design System */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap'); */
+
+:root {
+    --primary: #6366f1;
+    --primary-light: #818cf8;
+    --secondary: #64748b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #0ea5e9;
+    --whatsapp: #25d366;
+    --bg-main: #f3f4f6;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --text-main: #1e293b;
+    --text-sec: #475569;
+}
+
+.o_academy_dashboard {
+    font-family: 'Outfit', sans-serif !important;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding-bottom: 50px;
+    overflow-y: auto !important;
+    /* Fix scroll issue */
+    height: 100vh;
+}
+
+.text-secondary {
+    color: var(--text-sec) !important;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* Card Types Borders */
+.student-card {
+    border-left: 5px solid var(--primary);
+}
+
+.fee-card {
+    border-left: 5px solid var(--success);
+}
+
+.attendance-card {
+    border-left: 5px solid var(--info);
+}
+
+.whatsapp-card {
+    border-left: 5px solid var(--whatsapp);
+}
+
+.wams-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.wams-online {
+    background: rgba(37, 211, 102, 0.1);
+    color: var(--whatsapp);
+}
+
+.wams-offline {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.pulse-online {
+    width: 8px;
+    height: 8px;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Stats Cards */
+.stats-card {
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-card h3 {
+    font-size: 1.8rem;
+    color: #0f172a;
+}
+
+.stats-card .icon-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+/* Chart Containers */
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+/* Recent Activity Table */
+.modern-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.modern-table th {
+    background: transparent;
+    border: none;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.modern-table td {
+    vertical-align: middle;
+    padding: 16px 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Premium Badges */
+.badge-premium {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+/* Header Section */
+.dashboard-header h2 {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Quick Actions */
+.btn-action {
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-action:hover {
+    transform: scale(1.02);
+}
+
+/* Badge Colors */
+.bg-primary-light {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.bg-success-light {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.bg-info-light {
+    background: rgba(14, 165, 233, 0.1);
+}
+
+.bg-danger-light {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.x-small {
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+}
+
+.font-monospace {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.85rem;
+}

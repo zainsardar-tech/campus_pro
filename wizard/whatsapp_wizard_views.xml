@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_campus_whatsapp_wizard_form" model="ir.ui.view">
+        <field name="name">campus.whatsapp.wizard.form</field>
+        <field name="model">campus.whatsapp.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Custom WhatsApp">
+                <sheet>
+                    <group>
+                        <field name="student_id" readonly="1"/>
+                        <field name="mobile"/>
+                        <field name="message" placeholder="Type your message here..." widget="text" style="height: 150px;"/>
+                    </group>
+                    <footer>
+                        <button name="action_send_message" string="Send via WAMS" type="object" class="btn-primary" icon="fa-whatsapp"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_campus_whatsapp_wizard" model="ir.actions.act_window">
+        <field name="name">WhatsApp Message</field>
+        <field name="res_model">campus.whatsapp.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
